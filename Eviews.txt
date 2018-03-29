@@ -1,0 +1,87 @@
+import data
+{Quick} => {Empty Group(Edit Series)} => {Paste data vectors}
+
+
+sample
+smpl {range of years} ex:[@all | @first | @last -10 | smpl @all if dlog(rgdp_aus)>0 and (dlog(d))> 3]
+
+
+create new variable
+{Genr} => Ex:{x = log(g_aus)}  [ (-1) for lag]
+series {var_name = variable*2}
+
+
+save
+{Name}
+equation eq01 ls y x z
+scalar rmse_ - @rmse(p, p_0)
+
+
+Basic commands:
+constant - c
+log - log({variable})
+regression - ls {variables}
+dummy - @expend(@{variable}, @dropfirst) with droping first time
+is it NA - @isna(x)
+normal distributuin - {needful_var}*nrnd+{needful_mean}
+
+
+plot
+{Open as group variables} => {View Graph...} => {choose plot type}
+{view{correlogram}} => {choose params}
+
+
+arma
+AutoRegressive - ar(1)
+movingAverage - ma(1)
+ex: [ls y c x @expand(z, @droplast) ar(1) ma(1)]
+
+
+Choose model
+{proc, {choose type}} => get comparing of models
+
+
+
+1.Staitionary or no: var(t) = var(t-1)
+2. Remove the trend is first diff
+3. ACF for MA(q), PACF for AR(m)
+4. Use AIC and SBC for choose models
+	Box-Pierce Statistics for n lags Q=T*sum(r^2(k)) ~ X^2  H0: all r(k) = 0
+5. Define type of nonstationarity
+	Dickey-Fuller test for b in y(t)=by(t-1): H0: b = 1 or siqma[=b-1 in dif] = 0. T-stat
+	ADF, PP test for choose optimum lag p 
+	KPSS test for see is stationary
+	for vector {view} => {Unit Root Test} => {choose params	]
+
+
+VAR
+{Object} => {New Object} => {VAR}
+
+
+Cointegration is stationary due to combination of nonstationary variables
+
+ECM or Error Correction Model when e(t) in regression y(t) = x(t) + z(t) +e(t)
+
+VECM: estimate an unstricted VAR => test cointegration via Johansen Test => Form VECM	
+{Object} => {New Object} => {VAR}
+
+
+Forecasting
+THeil's stat: U=rmse/vars actula and forecasted. U=0 (the best)
+duumy for structual break (2008)
+
+
+Fan chart
+!boot =1
+!coefu = 1
+!numb = 3 (for 95%)
+
+
+Structural Breaks 
+{View} => {Chow Test}
+
+
+
+
+
+
